@@ -4,6 +4,15 @@ services:
       context: .
       args:
         - NODE_ENV=production
+
+    deploy:
+      mode: replicated
+      replicas: 6
+      restart_policy:
+        condition: any
+      update_config:
+        parallelism: 2
+        delay: 10s
     environment:
       - NODE_ENV=production
       - MONGO_USER=${MONGO_USER}
