@@ -3,7 +3,7 @@ name: Build, Push & Deploy
 on:
   push:
     branches:
-      - push # change this if your prod branch has a different name
+      - main # change this if your prod branch has a different name
 
 env:
   IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/node-application # rename "nodejs-app" as you like
