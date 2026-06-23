@@ -3,10 +3,10 @@ name: Build, Push & Deploy
 on:
   push:
     branches:
-      - main # change this if your prod branch has a different name
+      - workflow_dispatch # change this if your prod branch has a different name
 
 env:
-  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/nodejs-app # rename "nodejs-app" as you like
+  IMAGE_NAME: ${{ secrets.DOCKERHUB_USERNAME }}/node-application # rename "nodejs-app" as you like
 
 jobs:
   build-and-push:
@@ -63,7 +63,7 @@ jobs:
             cd ${{ secrets.PROJECT_PATH }}
 
             # Pull only the latest image for the app service
-            docker compose -f docker-compose.yml -f docker-compose.prod.yml pull app
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml pull node-app
 
             # Recreate only the app container, leave other services untouched
-            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps app
+            docker compose -f docker-compose.yml -f docker-compose.prod.yml up -d --no-deps node-app
