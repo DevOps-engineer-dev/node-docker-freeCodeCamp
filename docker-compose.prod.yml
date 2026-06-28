@@ -4,11 +4,12 @@ services:
     restart: unless-stopped
     environment:
       - NODE_ENV=production
-      - MONGO_USER=${MONGO_USER}
-      - MONGO_PASSWORD=${MONGO_PASSWORD}
-      - SESSION_SECRET=${SESSION_SECRET}
+      - MONGO_USER=${MONGO_USER:-root}
+      - MONGO_PASSWORD=${MONGO_PASSWORD:-example}
+      - MONGO_AUTH_SOURCE=${MONGO_AUTH_SOURCE:-admin}
+      - SESSION_SECRET=${SESSION_SECRET:-my_super_secret}
     command: npm run start
   mongo:
     environment:
-      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME}
-      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD}
+      - MONGO_INITDB_ROOT_USERNAME=${MONGO_INITDB_ROOT_USERNAME:-root}
+      - MONGO_INITDB_ROOT_PASSWORD=${MONGO_INITDB_ROOT_PASSWORD:-example}

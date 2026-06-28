@@ -45,9 +45,15 @@ app.use(
 
 app.use(express.json());
 
-const mongoUser = process.env.MONGO_USER;
-const mongoPassword = process.env.MONGO_PASSWORD;
-const mongoURL = `mongodb://${mongoUser}:${mongoPassword}@mongo:27017/?authSource=admin`;
+const mongoUser = process.env.MONGO_USER || "root";
+const mongoPassword = process.env.MONGO_PASSWORD || "example";
+const mongoHost = process.env.MONGO_HOST || "mongo";
+const mongoPort = process.env.MONGO_PORT || 27017;
+const mongoAuthSource = process.env.MONGO_AUTH_SOURCE || "admin";
+
+const mongoURL = `mongodb://${encodeURIComponent(mongoUser)}:${encodeURIComponent(
+  mongoPassword,
+)}@${mongoHost}:${mongoPort}/?authSource=${encodeURIComponent(mongoAuthSource)}`;
 
 mongoose
   .connect(mongoURL)
