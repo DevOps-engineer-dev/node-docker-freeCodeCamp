@@ -1,6 +1,6 @@
 services:
   node-app:
-    image: malwarecube/node-application:latest
+    image: malwarecube/node-application
     restart: unless-stopped
     environment:
       - NODE_ENV=production

@@ -2,9 +2,6 @@ services:
   node-app:
     build: .
     image: malwarecube/node-application
-    volumes:
-      - ./:/app
-      - /app/node_modules
     environment:
       - PORT=3000
     depends_on:
