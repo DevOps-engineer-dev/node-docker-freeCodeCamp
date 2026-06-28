@@ -56,7 +56,7 @@ mongoose
 
 // 3. NEW: Add a console.log to test load balancing
 app.get("/api/v1", (req, res) => {
-  res.send("<h2>Hello from the Node API! Hi</h2>");
+  res.send("<h2>Hello from the Node API! Good to see you back here!</h2>");
   console.log("Yeah it ran"); // This helps prove Nginx is balancing traffic
 });
 
