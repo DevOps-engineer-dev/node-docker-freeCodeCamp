@@ -55,10 +55,22 @@ const mongoURL = `mongodb://${encodeURIComponent(mongoUser)}:${encodeURIComponen
   mongoPassword,
 )}@${mongoHost}:${mongoPort}/?authSource=${encodeURIComponent(mongoAuthSource)}`;
 
-mongoose
-  .connect(mongoURL)
-  .then(() => console.log("Successfully Connected to MongoDB!"))
-  .catch((e) => console.log(e));
+const connectToMongo = async (attempt = 1) => {
+  try {
+    await mongoose.connect(mongoURL);
+    console.log("Successfully Connected to MongoDB!");
+  } catch (error) {
+    console.log(`Mongo connection attempt ${attempt} failed`);
+    console.log(error);
+
+    if (attempt < 10) {
+      const delay = Math.min(1000 * attempt, 5000);
+      setTimeout(() => connectToMongo(attempt + 1), delay);
+    }
+  }
+};
+
+connectToMongo();
 
 // 3. NEW: Add a console.log to test load balancing
 app.get("/api/v1", (req, res) => {
